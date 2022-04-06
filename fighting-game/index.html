@@ -1,3 +1,28 @@
-<canvas></canvas>
-
+<head>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<link href="style.css" rel="stylesheet" type="text/css">
+<body>
+    <div class="container">
+        <div class="position">
+            <!-- player helth -->
+            <div class="border">
+                <div class="helth"></div>
+                <div class="helth-bord1" id="player-helth"></div>
+            </div>
+            <!-- timer -->
+            <div class="timer"></div>
+            <!-- enemy helth -->
+            <div class="border" style="display: flex; justify-content: flex-end;">
+                <div class="helth"></div>
+                <div class="helth-bord2" id="enemy-helth"></div>
+            </div>
+        </div>
+        <canvas></canvas>
+    </div>
+</body>
 <script src="index.js"></script>

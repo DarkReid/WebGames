@@ -123,6 +123,37 @@ function rectengularCollision({rectangel1, rectangle2}) {
     )
 }
 
+//select winner
+function determineWinner({player, enemy, timerID}){
+    clearTimeout(timerID)
+    document.querySelector('#game-tie').style.display = 'flex';
+    if(player.helth === enemy.helth){
+            document.querySelector('#game-tie').innerHTML = 'Tie';
+        }else if(player.helth > enemy.helth){
+            document.querySelector('#game-tie').innerHTML = 'Player 1 Wins';
+        }else if(player.helth < enemy.helth){
+            document.querySelector('#game-tie').innerHTML = 'Player 2 Wins';
+        }
+}
+
+//game timer
+let timer = 60;
+let timerID;
+function decreseTimer(){
+    if(timer > 0) {
+        timerID = setTimeout(decreseTimer, 1000);
+        timer--;
+        document.querySelector('#game-timer').innerHTML = timer;
+    }
+
+    //win statement
+    if(timer === 0){
+        determineWinner({player, enemy, timerID})
+    }
+}
+
+decreseTimer();
+
 function animate(){
     window.requestAnimationFrame(animate);
     context.fillStyle ='black';
@@ -158,7 +189,6 @@ enemy.velocity.x = 0;
         player.isAttacking = false;
         enemy.helth -= 20;
         document.getElementById('enemy-helth').style.width = enemy.helth + '%';
-        console.log('player');
     }
 
     if(
@@ -171,7 +201,11 @@ enemy.velocity.x = 0;
         enemy.isAttacking = false;
         player.helth -= 20;
         document.getElementById('player-helth').style.width = player.helth + '%';
-        console.log('enemy');
+    }
+
+    //game end based on helth
+    if(enemy.helth <= 0 || player.helth <= 0){
+        determineWinner({player, enemy, timerID});
     }
 }
 
